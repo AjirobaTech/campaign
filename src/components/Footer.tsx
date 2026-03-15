@@ -7,13 +7,8 @@ const Footer = () => {
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-7 h-7 bg-primary rounded flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xs">A</span>
-              </div>
-              <span className="text-lg font-bold text-white">
-                AJÍRÓBA<sup className="text-[7px] align-super">®</sup>
-              </span>
+            <div className="flex items-center mb-2">
+              <img src="/logo.svg" alt="AJÍRÓBA Logo" className="h-8 w-auto" />
             </div>
             <p className="text-sm italic text-footer-foreground mb-4">
               ... Your foremost consumer<br />Raffle draw platform
