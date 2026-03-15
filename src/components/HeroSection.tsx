@@ -22,7 +22,7 @@ const HeroSection = () => {
     <section className="bg-gradient-to-b from-hero-gradient-start to-hero-gradient-end pt-16 pb-12 px-6">
       <div className="max-w-3xl mx-auto text-center">
         <div className="flex items-start justify-center gap-2 mb-4">
-          <h1 className="text-3xl md:text-6xl font-extrabold text-primary leading-tight">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-primary leading-tight">
             🎉 Welcome to the Ajiroba SPIN<br />& WIN Giveaway
           </h1>
         </div>
