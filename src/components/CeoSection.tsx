@@ -1,29 +1,36 @@
 const CeoSection = () => {
   return (
-    <section className="py-16 px-6">
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl font-semibold text-foreground mb-8">A Message from Our CEO</h2>
+    <section className="py-24 px-6 bg-transparent">
+      <div className="max-w-4xl mx-auto">
 
-        <div className="bg-ceo-bg rounded-2xl overflow-hidden flex flex-col md:flex-row items-stretch">
-          {/* CEO Image */}
-          <div className="w-full md:w-64 h-64 md:h-96 bg-primary/20 flex-shrink-0 relative">
-            <img
-              src="/woman.svg"
-              alt="Yeye Ajiroba"
-              className="w-full h-full object-cover"
-            />
+        <h2 className="text-3xl font-semibold text-foreground mb-8 text-center">A Message from Our CEO</h2>
+        {/* Main Card */}
+        <div className="bg-white rounded-[45px] shadow-[0_40px_100px_-20px_rgba(234,88,12,0.18)] flex flex-col md:flex-row items-center p-3 md:p-5 border-l-[18px] border-primary">
+    
+          {/* CEO Image - Framed with brown background */}
+          <div className="w-full md:w-[320px] flex-shrink-0">
+            <div className="bg-[#46281D] p-2.5 rounded-[38px] aspect-[4/5] md:aspect-auto md:h-[400px] overflow-hidden">
+              <img
+                src="/woman.svg"
+                alt="Yeye Ajiroba"
+                className="w-full h-full object-cover rounded-[30px]"
+              />
+            </div>
           </div>
 
-          {/* Quote */}
-          <div className="flex-1 p-8 md:p-10 text-left flex flex-col justify-center">
-            <span className="text-4xl text-foreground font-bold leading-none mb-2">"</span>
-            <p className="text-foreground/80 text-sm leading-relaxed mb-4">
-              We created this campaign to appreciate and reward our growing community. Thank you for being part of our journey and we hope you enjoy the experience.
-            </p>
-            <span className="text-4xl text-foreground font-bold leading-none text-right mb-4">"</span>
-            <div>
-              <p className="font-bold text-foreground text-sm">Yeye Ajiroba</p>
-              <p className="text-muted-foreground text-xs">CEO/Managing Director</p>
+          {/* Quote and Author Info */}
+          <div className="flex-1 px-8 md:px-12 py-8 md:py-0 text-left">
+            <div className="mb-6">
+              <span className="text-2xl font-bold block mb-4">"</span>
+              <p className="text-foreground text-base md:text-lg font-medium leading-relaxed max-w-md">
+                We created this campaign to appreciate and reward our growing community. Thank you for being part of our journey and we hope you enjoy the experience.
+              </p>
+              <span className="text-2xl font-bold block text-right pr-12">"</span>
+            </div>
+
+            <div className="mt-12">
+              <p className="font-extrabold text-black text-lg mb-0.5">Yeye Ajiroba</p>
+              <p className="text-muted-foreground text-sm font-semibold tracking-tight">CEO/Managing Director</p>
             </div>
           </div>
         </div>
