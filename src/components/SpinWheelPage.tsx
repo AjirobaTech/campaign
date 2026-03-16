@@ -90,8 +90,8 @@ const SpinWheelPage = ({ open, onOpenChange, userName, userEmail, userPhone }: S
 
   const handleJoinWhatsApp = () => {
     setRedeemOpen(false);
-    // Open WhatsApp group link (placeholder)
-    window.open("https://chat.whatsapp.com/", "_blank");
+    // Open WhatsApp group link
+    window.open("https://chat.whatsapp.com/LlEnIEgCjHt7eeOp0D3gq1?mode=gi_t", "_blank");
   };
 
   return (
