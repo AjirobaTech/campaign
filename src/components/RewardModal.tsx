@@ -44,7 +44,7 @@ const RewardModal = ({ open, onOpenChange, prize, onRedeem }: RewardModalProps) 
             className="w-full bg-primary text-primary-foreground font-semibold text-base px-8 py-3.5 rounded-xl inline-flex items-center justify-center gap-2.5 hover:opacity-90 transition-opacity shadow-lg"
           >
             <Gift className="w-5 h-5" />
-            Redeem My PriZe
+            Redeem My Prize
           </button>
         </div>
       </DialogContent>

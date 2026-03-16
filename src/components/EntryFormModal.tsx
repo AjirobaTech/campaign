@@ -16,8 +16,18 @@ const EntryFormModal = ({ open, onOpenChange, onContinue }: EntryFormModalProps)
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
+  const validateEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validatePhone = (phone: string) => {
+    return /^\d{11}$/.test(phone);
+  };
+
+  const isFormValid = name.trim() !== "" && validateEmail(email) && validatePhone(phone);
+
   const handleSubmit = () => {
-    if (!name.trim() || !email.trim() || !phone.trim()) return;
+    if (!isFormValid) return;
     onContinue({ name: name.trim(), email: email.trim(), phone: phone.trim() });
   };
 
@@ -59,9 +69,12 @@ const EntryFormModal = ({ open, onOpenChange, onContinue }: EntryFormModalProps)
                 placeholder="johndoe@mail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-input bg-muted/30 text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                className={`w-full pl-11 pr-4 py-3.5 rounded-xl border ${email && !validateEmail(email) ? 'border-destructive' : 'border-input'} bg-muted/30 text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors`}
               />
             </div>
+            {email && !validateEmail(email) && (
+              <p className="text-[10px] text-destructive mt-1 ml-1 font-medium">Please enter a valid email address</p>
+            )}
           </div>
 
           {/* Phone */}
@@ -73,10 +86,13 @@ const EntryFormModal = ({ open, onOpenChange, onContinue }: EntryFormModalProps)
                 type="tel"
                 placeholder="08153735233"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-input bg-muted/30 text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 11))}
+                className={`w-full pl-11 pr-4 py-3.5 rounded-xl border ${phone && !validatePhone(phone) ? 'border-destructive' : 'border-input'} bg-muted/30 text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors`}
               />
             </div>
+            {phone && !validatePhone(phone) && (
+              <p className="text-[10px] text-destructive mt-1 ml-1 font-medium">Must be exactly 11 digits</p>
+            )}
           </div>
         </div>
 
@@ -91,7 +107,7 @@ const EntryFormModal = ({ open, onOpenChange, onContinue }: EntryFormModalProps)
         {/* CTA */}
         <button
           onClick={handleSubmit}
-          disabled={!name.trim() || !email.trim() || !phone.trim()}
+          disabled={!isFormValid}
           className="mt-8 w-full bg-primary text-primary-foreground font-semibold text-base py-4 rounded-xl inline-flex items-center justify-center gap-3 hover:opacity-90 transition-opacity shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Continue to spin

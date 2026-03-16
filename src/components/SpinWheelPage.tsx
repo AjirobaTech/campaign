@@ -97,7 +97,7 @@ const SpinWheelPage = ({ open, onOpenChange, userName, userEmail, userPhone }: S
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-xl p-6 sm:p-8 gap-0 rounded-2xl border-none shadow-xl max-h-[95vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-xl p-6 sm:p-8 gap-0 rounded-2xl border-none shadow-xl overflow-hidden">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-2">
             Spin the Wheel & Win!
           </h2>
@@ -106,8 +106,8 @@ const SpinWheelPage = ({ open, onOpenChange, userName, userEmail, userPhone }: S
           </p>
 
           {/* Wheel */}
-          <div className="flex justify-center mb-6">
-            <div className="relative">
+          <div className="flex justify-center mb-6 overflow-hidden">
+            <div className="relative w-[300px] h-full sm:w-[400px] sm:h-full flex items-center justify-center">
               <Wheel
                 mustStartSpinning={mustSpin}
                 prizeNumber={prizeNumber}
