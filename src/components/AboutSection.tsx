@@ -36,9 +36,13 @@ const AboutSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {features.map((f) => (
-            <div key={f.title} className="flex flex-col items-center text-center">
-              <div className="w-14 h-14 rounded-full bg-icon-circle-bg flex items-center justify-center mb-4">
-                <img src={f.icon} className="w-8 h-8" alt={f.title} />
+            <div key={f.title} className="group flex flex-col items-center text-center cursor-pointer">
+              <div className="w-14 h-14 rounded-full bg-icon-circle-bg flex items-center justify-center mb-4 transition-all duration-300 group-hover:bg-primary">
+                <img 
+                  src={f.icon} 
+                  className="w-8 h-8 transition-all duration-300 group-hover:brightness-0 group-hover:invert" 
+                  alt={f.title} 
+                />
               </div>
               <h3 className="font-bold text-foreground text-sm mb-2">{f.title}</h3>
               <p className="text-muted-foreground text-xs leading-relaxed">{f.desc}</p>

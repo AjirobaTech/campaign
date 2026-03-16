@@ -102,3 +102,57 @@
     @apply bg-background text-foreground font-sans;
   }
 }
+
+@layer utilities {
+  @keyframes badge-cycle {
+
+    0%,
+    24% {
+      background: #84675A;
+      color: #000000;
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    25%,
+    49% {
+      background: #BC603E;
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    50%,
+    74% {
+      background: #F2622A;
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    75%,
+    100% {
+      background: linear-gradient(90deg, #9C3005 0%, #F2502A 100%);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  @keyframes badge-icon-cycle {
+
+    0%,
+    24% {
+      filter: brightness(0);
+    }
+
+    25%,
+    100% {
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  .animate-badge-cycle {
+    animation: badge-cycle 2s infinite;
+  }
+
+  .animate-badge-cycle img {
+    animation: badge-icon-cycle 2s infinite;
+  }
+}

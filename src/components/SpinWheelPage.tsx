@@ -42,11 +42,40 @@ const SpinWheelPage = ({ open, onOpenChange, userName, userEmail, userPhone }: S
     setMustSpin(true);
   };
 
-  const handleStopSpinning = () => {
+  const handleStopSpinning = async () => {
     setMustSpin(false);
     setHasSpun(true);
     const wonItem = data[prizeNumber].option.replace("\n", " ");
     setResult(wonItem);
+
+    // Prepare campaign data
+    const campaignData = {
+      full_name: userName,
+      email: userEmail,
+      phone: userPhone,
+      item: wonItem,
+    };
+
+    console.log("Sending project data immediately:", campaignData);
+
+    try {
+      const response = await fetch("https://staging.ajiroba.ng/v1/admin/campaigns/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(campaignData),
+      });
+
+      if (!response.ok) {
+        console.error("Failed to send campaign data:", response.statusText);
+      } else {
+        console.log("Campaign data sent successfully");
+      }
+    } catch (error) {
+      console.error("Error sending campaign data:", error);
+    }
+
     // Auto-show reward modal after a brief pause
     setTimeout(() => {
       onOpenChange(false);
@@ -60,17 +89,6 @@ const SpinWheelPage = ({ open, onOpenChange, userName, userEmail, userPhone }: S
   };
 
   const handleJoinWhatsApp = () => {
-    // Prepare campaign data
-    const campaignData = {
-      full_name: userName,
-      email: userEmail,
-      phone: userPhone,
-      item: result,
-    };
-
-    // TODO: POST to https://staging.ajiroba.ng/v1/admin/campaigns/
-    console.log("Campaign data to send:", campaignData);
-
     setRedeemOpen(false);
     // Open WhatsApp group link (placeholder)
     window.open("https://chat.whatsapp.com/", "_blank");
