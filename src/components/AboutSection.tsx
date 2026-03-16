@@ -34,7 +34,7 @@ const AboutSection = () => {
           Winners will redeem their prizes through our verified support channel.
         </p>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {features.map((f) => (
             <div key={f.title} className="flex flex-col items-center text-center">
               <div className="w-14 h-14 rounded-full bg-icon-circle-bg flex items-center justify-center mb-4">
