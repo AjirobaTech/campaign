@@ -21,7 +21,11 @@ const RewardModal = ({ open, onOpenChange, prize, onRedeem }: RewardModalProps) 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md p-6 sm:p-8 gap-0 rounded-2xl border-none shadow-xl">
+      <DialogContent 
+        className="sm:max-w-md p-6 sm:p-8 gap-0 rounded-2xl border-none shadow-xl"
+        onPointerDownOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+      >
         <div className="text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             {hasWon ? "🎊 Congratulations!" : "Better Luck next time!"}

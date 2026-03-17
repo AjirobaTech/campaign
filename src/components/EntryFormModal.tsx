@@ -33,7 +33,11 @@ const EntryFormModal = ({ open, onOpenChange, onContinue }: EntryFormModalProps)
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg p-6 sm:p-8 gap-0 rounded-2xl border-none shadow-xl">
+      <DialogContent 
+        className="sm:max-w-lg p-6 sm:p-8 gap-0 rounded-2xl border-none shadow-xl"
+        onPointerDownOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+      >
         {/* Title */}
         <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-2">
           Enter Your Details to Play

@@ -17,7 +17,11 @@ const steps = [
 const RedeemModal = ({ open, onOpenChange, onJoinWhatsApp }: RedeemModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md p-6 sm:p-8 gap-0 rounded-2xl border-none shadow-xl max-h-[95vh] overflow-y-auto">
+      <DialogContent 
+        className="sm:max-w-md p-6 sm:p-8 gap-0 rounded-2xl border-none shadow-xl max-h-[95vh] overflow-y-auto"
+        onPointerDownOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+      >
         <div className="text-center">
           {/* Icon */}
           <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">

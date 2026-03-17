@@ -97,7 +97,11 @@ const SpinWheelPage = ({ open, onOpenChange, userName, userEmail, userPhone }: S
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-xl p-6 sm:p-8 gap-0 rounded-2xl border-none shadow-xl overflow-hidden">
+        <DialogContent 
+          className="sm:max-w-xl p-6 sm:p-8 gap-0 rounded-2xl border-none shadow-xl overflow-hidden"
+          onPointerDownOutside={(e) => e.preventDefault()}
+          onEscapeKeyDown={(e) => e.preventDefault()}
+        >
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-2">
             Spin the Wheel & Win!
           </h2>
