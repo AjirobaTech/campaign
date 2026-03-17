@@ -48,12 +48,17 @@ const SpinWheelPage = ({ open, onOpenChange, userName, userEmail, userPhone }: S
     const wonItem = data[prizeNumber].option.replace("\n", " ");
     setResult(wonItem);
 
+    // Determine if user won a prize
+    const nonWinningItems = ["BETTER LUCK NEXT TIME", "WE LOVE YOU", "RAMADAN KAREEM", "THANK YOU", "YOU ARE ALMOST THERE"];
+    const isWin = !nonWinningItems.includes(wonItem);
+
     // Prepare campaign data
     const campaignData = {
       full_name: userName,
       email: userEmail,
       phone: userPhone,
       item: wonItem,
+      won: isWin,
     };
 
     console.log("Sending project data immediately:", campaignData);

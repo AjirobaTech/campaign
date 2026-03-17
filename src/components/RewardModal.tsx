@@ -15,6 +15,7 @@ const RewardModal = ({ open, onOpenChange, prize, onRedeem }: RewardModalProps) 
     "₦1,500 CASH",
     "₦750 AIRTIME",
     "₦1,000 DATA",
+    "₦500 AIRTIME",
   ];
 
   const hasWon = winningOptions.includes(prize);
