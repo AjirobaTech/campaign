@@ -9,15 +9,27 @@ interface RewardModalProps {
 }
 
 const RewardModal = ({ open, onOpenChange, prize, onRedeem }: RewardModalProps) => {
+  const winningOptions = [
+    "₦1,000 AIRTIME",
+    "₦1,000 CASH",
+    "₦1,500 CASH",
+    "₦750 AIRTIME",
+    "₦1,000 DATA",
+  ];
+
+  const hasWon = winningOptions.includes(prize);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md p-6 sm:p-8 gap-0 rounded-2xl border-none shadow-xl">
         <div className="text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-            🎊 Congratulations!
+            {hasWon ? "🎊 Congratulations!" : "Better Luck next time!"}
           </h2>
-          <p className="text-muted-foreground text-sm mb-6">
-            You've won a reward! We have sent you a mail of your reward
+          <p className="text-muted-foreground text-sm mb-6 px-4">
+            {hasWon
+              ? "You've won a reward! We have sent you a mail of your reward"
+              : "We are sorry you didn't win this time. Don't feel bad about this, we still have many other gifts coming up"}
           </p>
 
           {/* Prize Card */}
@@ -31,7 +43,9 @@ const RewardModal = ({ open, onOpenChange, prize, onRedeem }: RewardModalProps) 
             {/* Bottom white section */}
             <div className="bg-background py-6 px-4">
               <p className="text-muted-foreground text-sm mb-1">Your Prize</p>
-              <p className="text-3xl font-bold text-foreground mb-1">{prize}</p>
+              <p className="text-3xl font-bold text-foreground mb-1 capitalize">
+                {prize.toLowerCase()}
+              </p>
               <p className="text-muted-foreground text-xs">
                 Enjoy this exclusive reward from our campaign.
               </p>
@@ -41,7 +55,12 @@ const RewardModal = ({ open, onOpenChange, prize, onRedeem }: RewardModalProps) 
           {/* Redeem Button */}
           <button
             onClick={onRedeem}
-            className="w-full bg-primary text-primary-foreground font-semibold text-base px-8 py-3.5 rounded-xl inline-flex items-center justify-center gap-2.5 hover:opacity-90 transition-opacity shadow-lg"
+            disabled={!hasWon}
+            className={`w-full font-semibold text-base px-8 py-3.5 rounded-xl inline-flex items-center justify-center gap-2.5 transition-all shadow-lg ${
+              hasWon
+                ? "bg-primary text-primary-foreground hover:opacity-90 shadow-primary/20"
+                : "bg-[#FDF0E9] text-[#222] opacity-100 cursor-not-allowed"
+            }`}
           >
             <Gift className="w-5 h-5" />
             Redeem My Prize
