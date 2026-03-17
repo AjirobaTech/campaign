@@ -15,6 +15,8 @@ const EntryFormModal = ({ open, onOpenChange, onContinue }: EntryFormModalProps)
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -24,10 +26,36 @@ const EntryFormModal = ({ open, onOpenChange, onContinue }: EntryFormModalProps)
     return /^\d{11}$/.test(phone);
   };
 
-  const isFormValid = name.trim() !== "" && validateEmail(email) && validatePhone(phone);
+  const isFormValid = name.trim() !== "" && validateEmail(email) && validatePhone(phone) && !emailError;
 
-  const handleSubmit = () => {
-    if (!isFormValid) return;
+  const checkEmailExists = async (emailToCheck: string) => {
+    if (!validateEmail(emailToCheck)) return false;
+    
+    try {
+      const response = await fetch(`https://staging.ajiroba.ng/v1/admin/campaigns/check-email/?email=${encodeURIComponent(emailToCheck)}`);
+      const data = await response.json();
+      // Adjusting based on common API patterns, assuming data.exists or similar
+      if (data.exists || data.status === "already_used" || data.message?.toLowerCase().includes("used")) {
+        setEmailError("email already used");
+        return true;
+      }
+      setEmailError("");
+      return false;
+    } catch (error) {
+      console.error("Error checking email:", error);
+      return false;
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!isFormValid || isLoading) return;
+    
+    setIsLoading(true);
+    const exists = await checkEmailExists(email.trim());
+    setIsLoading(false);
+    
+    if (exists) return;
+    
     onContinue({ name: name.trim(), email: email.trim(), phone: phone.trim() });
   };
 
@@ -72,12 +100,19 @@ const EntryFormModal = ({ open, onOpenChange, onContinue }: EntryFormModalProps)
                 type="email"
                 placeholder="johndoe@mail.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={`w-full pl-11 pr-4 py-3.5 rounded-xl border ${email && !validateEmail(email) ? 'border-destructive' : 'border-input'} bg-muted/30 text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors`}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (emailError) setEmailError("");
+                }}
+                onBlur={() => checkEmailExists(email.trim())}
+                className={`w-full pl-11 pr-4 py-3.5 rounded-xl border ${email && (!validateEmail(email) || emailError) ? 'border-destructive' : 'border-input'} bg-muted/30 text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors`}
               />
             </div>
             {email && !validateEmail(email) && (
               <p className="text-[10px] text-destructive mt-1 ml-1 font-medium">Please enter a valid email address</p>
+            )}
+            {emailError && (
+              <p className="text-[10px] text-destructive mt-1 ml-1 font-medium">{emailError}</p>
             )}
           </div>
 
@@ -111,11 +146,20 @@ const EntryFormModal = ({ open, onOpenChange, onContinue }: EntryFormModalProps)
         {/* CTA */}
         <button
           onClick={handleSubmit}
-          disabled={!isFormValid}
+          disabled={!isFormValid || isLoading}
           className="mt-8 w-full bg-primary text-primary-foreground font-semibold text-base py-4 rounded-xl inline-flex items-center justify-center gap-3 hover:opacity-90 transition-opacity shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Continue to spin
-          <span className="text-lg">←</span>
+          {isLoading ? (
+            <span className="flex items-center gap-2">
+              <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              Checking...
+            </span>
+          ) : (
+            <>
+              Continue to spin
+              <span className="text-lg">←</span>
+            </>
+          )}
         </button>
       </DialogContent>
     </Dialog>
