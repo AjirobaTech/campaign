@@ -9,9 +9,10 @@ interface EntryFormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onContinue: (data: { name: string; email: string; phone: string }) => void;
+  onEmailExists: () => void;
 }
 
-const EntryFormModal = ({ open, onOpenChange, onContinue }: EntryFormModalProps) => {
+const EntryFormModal = ({ open, onOpenChange, onContinue, onEmailExists }: EntryFormModalProps) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -36,7 +37,8 @@ const EntryFormModal = ({ open, onOpenChange, onContinue }: EntryFormModalProps)
       const data = await response.json();
       // Adjusting based on common API patterns, assuming data.exists or similar
       if (data.exists || data.status === "already_used" || data.message?.toLowerCase().includes("used")) {
-        setEmailError("email already used");
+        // setEmailError("email already used");
+        onEmailExists();
         return true;
       }
       setEmailError("");

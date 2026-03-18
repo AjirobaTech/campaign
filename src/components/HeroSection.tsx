@@ -1,10 +1,12 @@
 import { useState } from "react";
 import EntryFormModal from "./EntryFormModal";
 import SpinWheelPage from "./SpinWheelPage";
+import AlreadyParticipatedModal from "./AlreadyParticipatedModal";
 
 const HeroSection = () => {
   const [formOpen, setFormOpen] = useState(false);
   const [spinOpen, setSpinOpen] = useState(false);
+  const [alreadyParticipatedOpen, setAlreadyParticipatedOpen] = useState(false);
   const [userName, setUserName] = useState("");
 
   const [userEmail, setUserEmail] = useState("");
@@ -16,6 +18,11 @@ const HeroSection = () => {
     setUserPhone(data.phone);
     setFormOpen(false);
     setSpinOpen(true);
+  };
+
+  const handleEmailExists = () => {
+    setFormOpen(false);
+    setAlreadyParticipatedOpen(true);
   };
 
   return (
@@ -50,8 +57,23 @@ const HeroSection = () => {
         </button>
       </div>
 
-      <EntryFormModal open={formOpen} onOpenChange={setFormOpen} onContinue={handleContinue} />
-      <SpinWheelPage open={spinOpen} onOpenChange={setSpinOpen} userName={userName} userEmail={userEmail} userPhone={userPhone} />
+      <EntryFormModal 
+        open={formOpen} 
+        onOpenChange={setFormOpen} 
+        onContinue={handleContinue}
+        onEmailExists={handleEmailExists}
+      />
+      <SpinWheelPage 
+        open={spinOpen} 
+        onOpenChange={setSpinOpen} 
+        userName={userName} 
+        userEmail={userEmail} 
+        userPhone={userPhone} 
+      />
+      <AlreadyParticipatedModal 
+        open={alreadyParticipatedOpen} 
+        onOpenChange={setAlreadyParticipatedOpen} 
+      />
     </section>
   );
 };
