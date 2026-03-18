@@ -1,5 +1,5 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Gift } from "lucide-react";
+import { Gift, Users } from "lucide-react";
 
 interface RewardModalProps {
   open: boolean;
@@ -60,15 +60,19 @@ const RewardModal = ({ open, onOpenChange, prize, onRedeem }: RewardModalProps) 
           {/* Redeem Button */}
           <button
             onClick={onRedeem}
-            disabled={!hasWon}
-            className={`w-full font-semibold text-base px-8 py-3.5 rounded-xl inline-flex items-center justify-center gap-2.5 transition-all shadow-lg ${
-              hasWon
-                ? "bg-primary text-primary-foreground hover:opacity-90 shadow-primary/20"
-                : "bg-[#FDF0E9] text-[#222] opacity-100 cursor-not-allowed"
-            }`}
+            className={`w-full font-semibold text-base px-8 py-3.5 rounded-xl inline-flex items-center justify-center gap-2.5 transition-all shadow-lg bg-primary text-primary-foreground hover:opacity-90 shadow-primary/20`}
           >
-            <Gift className="w-5 h-5" />
-            Redeem My Prize
+            {hasWon ? (
+              <>
+                <Gift className="w-5 h-5" />
+                Redeem My Prize
+              </>
+            ) : (
+              <>
+                <Users className="w-5 h-5" />
+                Join our community
+              </>
+            )}
           </button>
         </div>
       </DialogContent>

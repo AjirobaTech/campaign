@@ -90,7 +90,17 @@ const SpinWheelPage = ({ open, onOpenChange, userName, userEmail, userPhone }: S
 
   const handleRedeem = () => {
     setRewardOpen(false);
-    setRedeemOpen(true);
+    
+    // Determine if user won a prize to show redeem modal or join community link
+    const nonWinningItems = ["BETTER LUCK NEXT TIME", "WE LOVE YOU", "RAMADAN KAREEM", "THANK YOU", "YOU ARE ALMOST THERE"];
+    const isWin = !nonWinningItems.includes(result);
+
+    if (isWin) {
+      setRedeemOpen(true);
+    } else {
+      // Direct link to WhatsApp group for non-winners
+      window.open("https://chat.whatsapp.com/LlEnIEgCjHt7eeOp0D3gq1?mode=gi_t", "_blank");
+    }
   };
 
   const handleJoinWhatsApp = () => {
